@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -14,7 +16,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard', ['projects' => Project::all()]);
+        $projects = Project::orderByDesc('id')->paginate(12);
+        return view('admin.dashboard', ['projects' => $projects]);
     }
 
     /**
@@ -22,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -30,7 +33,31 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+
+
+        // validate the user input
+        $val_data = $request->validate([
+            'title' => 'required|bail|min:3|max:150',
+            'slug' => 'min:3|max:50',
+            'description' => 'nullable|max:350',
+            'cover_image' => 'nullable|image|max:1024',
+        ]);
+
+
+        // generate the post slug
+        $val_data['slug'] = Str::slug($request->title, '-');
+
+
+        // add the cover image if passed in the request
+        if ($request->has('cover_image')) {
+            $path = Storage::put('posts_images', $request->cover_image);
+            $val_data['cover_image'] = $path;
+        }
+
+        //dd($val_data);
+        // create the new article
+        Project::create($val_data);
+        return to_route('admin.projects.index')->with('message', 'Post Created successfully');
     }
 
     /**

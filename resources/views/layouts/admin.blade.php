@@ -74,6 +74,14 @@
                                     href="{{ route('admin.dashboard') }}">
                                     <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Dashboard
                                 </a>
+                                
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.projects.create' ? 'bg-secondary' : '' }}"
+                                   href="{{ route('admin.projects.create') }}">
+                                    <i class="fa-solid fa-plus fa-lg fa-fw"></i> Create Project
+                                </a>
                             </li>
 
                         </ul>
