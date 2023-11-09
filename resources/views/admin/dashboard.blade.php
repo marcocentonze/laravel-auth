@@ -81,10 +81,16 @@
                                             <td class="text-center text-muted">No projects yet!</td>
                                         </tr>
                                     @endforelse
+                                    <!-- Pagination Links -->
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                </div>
+                {{-- Pagination --}}
+                <div class="d-flex justify-content-center mt-2">
+                    {{ $projects->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

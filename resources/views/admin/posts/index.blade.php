@@ -50,8 +50,6 @@
                                 <td>{{ $project['description'] }}</td>
                             </tr>
                         @endforeach
-                        <!-- Pagination Links -->
-                        {{ $projects->links('pagination::bootstrap-5') }}
                     </tbody>
                 </table>
             </div>
