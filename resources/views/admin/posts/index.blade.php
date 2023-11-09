@@ -46,15 +46,11 @@
                                             alt="{{ $project['title'] }}">
                                     @endif --}}
 
-                                    {{-- di artur --}}
+                                    
                                     {{-- {{ <img width:'150' src="{{$project->cover_image}}" alt="Cover image {{$project->name}}">}} --}}
-                                    {{-- <img width="150" src="{{ asset('/storage/' . $project->cover_image)}}" alt="Cover image {{$project->name}}"> --}}
-                                    @if ($project->cover_image)
-                                        <img class="card-img" src="{{ asset('storage/' . $project->cover_image) }}"
-                                            alt="Cover Image for {{ $project->title }}" width="150" height="150">
-                                    @else
-                                        <span>No image available</span>
-                                    @endif
+                                    <img width="150" src="{{ asset('storage/' . $project->cover_image) }}" alt="Cover image {{ $project->title }}" class="img-fluid">
+
+                                  
                                 </td>
                                 <td>{{ $project['description'] }}</td>
                             </tr>
