@@ -38,17 +38,31 @@
                                 <td>{{ $project['id'] }}</td>
                                 <td>{{ $project['title'] }}</td>
                                 <td>
-                                    @if (str_contains($project->cover_image, 'http'))
+                                    {{-- @if (str_contains($project->cover_image, 'http'))
                                         <img class="card-img" src="{{ asset($project->cover_image) }}"
-                                            alt="{{ $project['title'] }}">>
+                                            alt="{{ $project['title'] }}">
                                     @else
                                         <img class="card-img" src="{{ asset('storage/' . $project->cover_image) }}"
-                                            alt="{{ $project['title'] }}">>
+                                            alt="{{ $project['title'] }}">
+                                    @endif --}}
+
+                                    {{-- di artur --}}
+                                    {{-- {{ <img width:'150' src="{{$project->cover_image}}" alt="Cover image {{$project->name}}">}} --}}
+                                    {{-- <img width="150" src="{{ asset('/storage/' . $project->cover_image)}}" alt="Cover image {{$project->name}}"> --}}
+                                    @if ($project->cover_image)
+                                        <img class="card-img" src="{{ asset('storage/' . $project->cover_image) }}"
+                                            alt="Cover Image for {{ $project->title }}" width="150" height="150">
+                                    @else
+                                        <span>No image available</span>
                                     @endif
                                 </td>
                                 <td>{{ $project['description'] }}</td>
                             </tr>
                         @endforeach
+
+
+
+
                     </tbody>
                 </table>
                 @include('partials.pagination')

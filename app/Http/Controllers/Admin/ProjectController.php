@@ -44,15 +44,19 @@ class ProjectController extends Controller
         ]);
 
 
+
+
+        // add the cover image if passed in the request
+        if ($request->hasFile('cover_image')) {
+            $file_path = Storage::disk('public')->put('cover_images', $request->cover_image);
+            $val_data['cover_image'] = $file_path;
+            // dd($file_path);
+        }
+
         // generate the post slug
         $val_data['slug'] = Str::slug($request->title, '-');
 
 
-        // add the cover image if passed in the request
-        if ($request->has('cover_image')) {
-            $path = Storage::put('public/posts_images', $request->file('cover_image'));
-            $val_data['cover_image'] = $path;
-        }
 
 
         // create the new article
