@@ -20,7 +20,7 @@ class ProjectSeeder extends Seeder
             $project->title = $faker->realText(50);
             $project->slug = Str::slug($project->title, '-');
             $project->description = $faker->realText(300);
-            $project->cover_image = 'storage/placeholders/' . $faker->image('public/storage/placeholders', 640, 480, fullPath: false);
+            $project->cover_image = 'https://unsplash.it/600/400?image=' . rand(1, 1000);
             $project->save();
         }
     }

@@ -38,13 +38,12 @@
                                 <td>{{ $project['id'] }}</td>
                                 <td>{{ $project['title'] }}</td>
                                 <td>
-                                    @if (str_contains($project['cover_image'], 'http'))
-                                        <img style="width:50px" class="img-fluid rounded-circle"
-                                            src="{{ $comic['cover_image'] }}" alt="{{ $project['title'] }}">
+                                    @if (str_contains($project->cover_image, 'http'))
+                                        <img class="card-img" src="{{ asset($project->cover_image) }}"
+                                            alt="{{ $project['title'] }}">>
                                     @else
-                                        <img style="width:50px" class="img-fluid rounded-circle"
-                                            src="{{ asset('storage/' . $project->cover_image) }}"
-                                            alt="{{ $project['title'] }}">
+                                        <img class="card-img" src="{{ asset('storage/' . $project->cover_image) }}"
+                                            alt="{{ $project['title'] }}">>
                                     @endif
                                 </td>
                                 <td>{{ $project['description'] }}</td>
@@ -52,6 +51,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                @include('partials.pagination')
             </div>
 
 

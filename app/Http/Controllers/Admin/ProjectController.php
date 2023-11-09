@@ -17,7 +17,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::orderByDesc('id')->paginate(12);
-        return view('admin.dashboard', ['projects' => $projects]);
+        return view('admin.posts.index', ['projects' => $projects]);
     }
 
     /**
@@ -40,7 +40,7 @@ class ProjectController extends Controller
             'title' => 'required|bail|min:3|max:150',
             'slug' => 'min:3|max:50',
             'description' => 'nullable|max:350',
-            'cover_image' => 'nullable|image|max:1024',
+            'cover_image' => 'nullable|image|max:500',
         ]);
 
 
@@ -50,13 +50,14 @@ class ProjectController extends Controller
 
         // add the cover image if passed in the request
         if ($request->has('cover_image')) {
-            $path = Storage::put('posts_images', $request->cover_image);
+            $path = Storage::put('public/posts_images', $request->file('cover_image'));
             $val_data['cover_image'] = $path;
         }
 
-        //dd($val_data);
+
         // create the new article
         Project::create($val_data);
+
         return to_route('admin.projects.index')->with('message', 'Post Created successfully');
     }
 

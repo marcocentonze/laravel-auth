@@ -34,8 +34,12 @@
                                         <tr>
                                             <th scope="row">{{ $project->id }}</th>
                                             <td>{{ $project->title }}</td>
-                                            <td><img src="{{ asset($project->cover_image) }}" alt="project-cover"
-                                                    class="img-thumbnail" style="width: 100px;"></td>
+                                            <td>
+                                                <img src="{{ asset('storage/posts_images/' . $project->cover_image) }}"
+                                                    alt="project-cover" class="img-thumbnail" style="width: 100px;">
+
+                                            </td>
+
                                             <td>
                                                 <a href="{{ route('admin.projects.show', $project->id) }}"
                                                     class="btn btn-info btn-sm m-1">More</a>
@@ -87,10 +91,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                {{-- Pagination --}}
-                <div class="d-flex justify-content-center mt-2">
-                    {{ $projects->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

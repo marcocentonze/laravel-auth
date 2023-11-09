@@ -18,13 +18,13 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data" >
                 @csrf
 
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="title" id="title" class="form-control"
-                        placeholder="Type the psot title here" aria-describedby="helperTitle">
+                        placeholder="Type the post title here" aria-describedby="helperTitle">
                     <small id="helperTitle" class="text-muted">Type your post title max: 50 characters</small>
                 </div>
 
@@ -32,8 +32,8 @@
                 <div class="mb-3">
                     <label for="cover_image" class="form-label">Choose file</label>
                     <input type="file" class="form-control" name="cover_image" id="cover_image"
-                        placeholder="Chose a file" aria-describedby="fileHelp">
-                    <div id="fileHelp" class="form-text">Add an image max 500kb</div>
+                        placeholder="Choose a file" aria-describedby="fileHelp">
+                    <div id="fileHelp" class="form-text">Add an image max 1mb</div>
                 </div>
 
 
