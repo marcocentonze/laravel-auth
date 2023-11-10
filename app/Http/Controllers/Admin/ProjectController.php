@@ -96,6 +96,7 @@ class ProjectController extends Controller
             $val_data['slug'] = Str::slug($request->title, '-');
         }
 
+        $val_data = $request->toArray();
 
         if ($request->hasFile('cover_image')) {
             //salva la nuvoa img
@@ -110,6 +111,7 @@ class ProjectController extends Controller
             $val_data['cover_image'] = $file_path;
         }
 
+        // dd([$request->toArray(), $project->toArray(), $val_data]);
         
         //update
         $project->update($val_data);
