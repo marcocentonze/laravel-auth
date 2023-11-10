@@ -18,7 +18,7 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data" >
+            <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -38,8 +38,8 @@
 
 
                 <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea class="form-control" name="content" id="content" rows="3"></textarea>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" name="description" id="description" rows="3"></textarea>
                 </div>
 
                 <button class="btn btn-primary" type="submit">
