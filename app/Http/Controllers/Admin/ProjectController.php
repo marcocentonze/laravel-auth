@@ -112,7 +112,7 @@ class ProjectController extends Controller
         }
 
         // dd([$request->toArray(), $project->toArray(), $val_data]);
-        
+
         //update
         $project->update($val_data);
 
@@ -126,6 +126,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        
+        $project->delete();
+
+        return to_route('admin.projects.index')->with('message', 'Well Done! Project deleted successfully!');
     }
 }
