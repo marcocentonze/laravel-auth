@@ -5,9 +5,7 @@
 @section('content')
 
     <div class="container mt-5">
-        <h1 class="mb-4">Index Admin
-            <a href="{{ route('admin.projects.create') }}" class="btn btn-sm btn-primary float-end">Create New Project</a>
-        </h1>
+
 
         @if (session('message'))
             <div class="alert alert-success" role="alert">
@@ -16,9 +14,9 @@
         @endif
 
         {{-- Alert when empty --}}
-        @if ($projects->isEmpty())
+        @if ($trashedProjects->isEmpty())
             <div class="alert alert-warning" role="alert">
-                No projects here yet!
+                No deleted projects here!
             </div>
         @else
             <div class="table-responsive">
@@ -33,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($projects as $project)
+                        @foreach ($trashedProjects as $project)
                             <tr>
                                 <td class="py-2 px-3">{{ $project->id }}</td>
                                 <td class="py-2 px-3">{{ $project->title }}</td>
@@ -51,35 +49,66 @@
                                 </td>
                                 <td class="py-2 px-3">{{ $project->description }}</td>
                                 <td>
-                                    <a class="btn btn-primary m-1"
-                                        href="{{ route('admin.projects.show', $project->slug) }}">
-                                        <i class="fa-solid fa-circle-info"></i> More</a>
-                                    <a class="btn btn-warning m-1"
-                                        href="{{ route('admin.projects.edit', $project->slug) }}">
-                                        <i class="fa-solid fa-pen-to-square"></i>Edit</a>
-
                                     <!-- Modal trigger button -->
-                                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"
-                                        data-bs-target="#modalId-{{ $project->id }}">
-                                        <i class="fa-solid fa-trash-can"></i> Delete
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#modalId-restore-{{ $project->id }}">
+                                        <i class="fas fa-undo"></i>
+                                        Restore
                                     </button>
 
                                     <!-- Modal Body -->
                                     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                                    <div class="modal fade" id="modalId-{{ $project->id }}" tabindex="-1"
+                                    <div class="modal fade" id="modalId-restore-{{ $project->id }}" tabindex="-1"
+                                        data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                                        aria-labelledby="modalTitleId" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+                                            role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitleId">Restoring Project
+                                                        {{ $project->id }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you want to restore this project?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <form
+                                                        action="{{ route('admin.restore', ['project' => $project->slug]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-success">
+                                                            <i class="fas fa-undo"></i>Restore</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Modal trigger button -->
+                                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"
+                                        data-bs-target="#modalId-force-delete-{{ $project->id }}">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                        Delete
+                                    </button>
+
+                                    <!-- Modal Body -->
+                                    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+                                    <div class="modal fade" id="modalId-force-delete-{{ $project->id }}" tabindex="-1"
                                         data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
                                         aria-labelledby="modalTitleId-{{ $project->id }}" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
                                             role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title text-nowrap"
-                                                        id="modalTitleId-{{ $project->id }}">
-                                                        <i class="fa-solid fa-triangle-exclamation pe-2 text-warning"></i>
-                                                        Deleting project
-                                                        #{{ $project->id }} <i
-                                                            class="fa-solid fa-triangle-exclamation ps-2 text-warning"></i>
-                                                    </h5>
+                                                    <h5 class="modal-title" id="modalTitleId-{{ $project->id }}">Deleting
+                                                        project
+                                                        #{{ $project->id }}</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -89,14 +118,12 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <form action="{{ route('admin.projects.destroy', $project->slug) }}"
+                                                    <form
+                                                        action="{{ route('admin.forceDestroy', ['project' => $project->slug]) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">
-                                                            <i class="fa-solid fa-trash-can"></i>
-                                                            Confirm
-                                                        </button>
+                                                        <button type="submit" class="btn btn-danger">Confirm</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -111,7 +138,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                @include('partials.pagination')
+                {{-- @include('partials.pagination') --}}
             </div>
         @endif
     </div>

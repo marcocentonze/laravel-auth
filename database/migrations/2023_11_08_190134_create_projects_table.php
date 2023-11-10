@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description', 350)->nullable();
             $table->text('cover_image')->nullable();
+            $table->string('website_link')->nullable()->unique();
+            $table->string('github_link')->nullable()->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
