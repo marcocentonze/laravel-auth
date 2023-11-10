@@ -9,6 +9,9 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+
+
+
 class ProjectController extends Controller
 {
     /**
@@ -86,8 +89,35 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $val_data = $request->validated();
+
+        //genera un nuovo slug se è cambiato il titolo
+        if (!Str::is($project->getOriginal('title'), $request['title'])) {
+            $val_data['slug'] = Str::slug($request->title, '-');
+        }
+
+
+        if ($request->hasFile('cover_image')) {
+            //salva la nuvoa img
+            $file_path = Storage::disk('public')->put('cover_images', $request->cover_image);
+
+            //se project ha già img la cancella e sostituisce
+            if ($project->cover_image && Storage::disk('public')->exists($project->cover_image)) {
+                Storage::disk('public')->delete($project->cover_image);
+            }
+
+            //assegna la nuova img 
+            $val_data['cover_image'] = $file_path;
+        }
+
+        
+        //update
+        $project->update($val_data);
+
+
+        return to_route('admin.projects.index')->with('message', 'Well Done! Project edited successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.

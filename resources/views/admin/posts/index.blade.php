@@ -46,10 +46,13 @@
                                     <a class="btn btn-primary m-1"
                                         href="{{ route('admin.projects.show', $project->slug) }}">
                                         <i class="fa-solid fa-circle-info"></i> More</a>
+                                        <a class="btn btn-primary m-1"
+                                        href="{{ route('admin.projects.edit', $project->slug) }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>Edit</a>
                                    
 
 
-                                </td>
+                                </td> 
 
 
                             </tr>
