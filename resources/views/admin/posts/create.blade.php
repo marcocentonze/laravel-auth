@@ -42,6 +42,21 @@
                     <textarea class="form-control" name="description" id="description" rows="3"></textarea>
                 </div>
 
+                <div class="mb-3">
+                    <label for="website_link" class="form-label">Add Website Link</label>
+                    <input type="url" name="website_link" id="website_link"
+                        class="form-control" placeholder="Insert your website project link"
+                        aria-describedby="helpId" value="{{ old('website_link') }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="github_link" class="form-label">Add GitHub Link</label>
+                    <input type="url" name="github_link" id="github_link"
+                        class="form-control" placeholder="Insert your Github project link"
+                        aria-describedby="helpId" value="{{ old('github_link') }}">
+                </div>
+
+
                 <button class="btn btn-primary" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-save" viewBox="0 0 16 16">

@@ -21,6 +21,8 @@ class ProjectSeeder extends Seeder
             $project->slug = Str::slug($project->title, '-');
             $project->description = $faker->realText(300);
             $project->cover_image = 'https://unsplash.it/600/400?image=' . rand(1, 1000);
+            $project->github_link = $faker->url();
+            $project->website_link = $faker->url();
             $project->save();
         }
     }

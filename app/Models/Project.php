@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['title', 'slug', 'cover_image', 'description'];
+    protected $fillable = ['title', 'slug', 'cover_image', 'description', 'github_link', 'website_link'];
 
     public static function generateSlug($string)
     {

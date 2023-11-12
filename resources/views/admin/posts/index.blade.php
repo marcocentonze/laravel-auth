@@ -22,13 +22,14 @@
             </div>
         @else
             <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered shadow-sm">
-                    <thead class="bg-info">
+                <table class="table table-bordered shadow-sm">
+                    <thead>
                         <tr>
                             <th scope="col" class="py-2 px-3">ID</th>
                             <th scope="col" class="py-2 px-3">Title</th>
                             <th scope="col" class="py-2 px-3">Image</th>
                             <th scope="col" class="py-2 px-3">Description</th>
+                            <th scope="col" class="py-2 px-3">Links</th>
                             <th scope="col" class="py-2 px-3">Actions</th>
                         </tr>
                     </thead>
@@ -49,12 +50,28 @@
                                     @endif
                                 </td>
                                 <td class="py-2 px-3">{{ $project->description }}</td>
+                                   {{-- Links --}}
+                                <td class="py-2 px-3">
+
+                                    <a class="btn btn-dark m-1" href="{{ $project->github_link }}">
+                                        <i class="fa-brands fa-github"></i>
+                                    </a>
+
+                                    <a class="btn m-1"
+                                    href="{{ $project->website_link }}"
+                                        style="background-color: #e9ecef">
+                                        <i class="fas fa-globe" style="color:#007bff"></i>
+                                    </a>
+
+                                </td>
+
                                 <td class="text-center text-nowrap">
 
                                     {{-- more button --}}
                                     <a class="btn btn-primary " href="{{ route('admin.projects.show', $project->slug) }}"
                                         title="More">
                                         <i class="fa-solid fa-circle-info"></i> </a>
+
                                     {{-- edit button --}}
                                     <a class="btn btn-warning my-2"
                                         href="{{ route('admin.projects.edit', $project->slug) }}" title="Edit">

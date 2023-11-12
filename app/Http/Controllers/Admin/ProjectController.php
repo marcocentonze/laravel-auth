@@ -44,6 +44,8 @@ class ProjectController extends Controller
             'slug' => 'min:3|max:50',
             'description' => 'nullable|max:350',
             'cover_image' => 'nullable|image|max:500',
+            'website_link' => 'nullable|url',
+            'github_link' => 'nullable|url'
         ]);
 
 

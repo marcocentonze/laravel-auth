@@ -52,6 +52,20 @@
                         @enderror
                     </div>
 
+                    <div class="mb-3">
+                        <label for="github_link" class="form-label">Edit your github Link</label>
+                        <input type="url" name="github_link" id="github_link"
+                            class="form-control" placeholder="Edit github project link"
+                            aria-describedby="helpId" value="{{ old('github_link', $project->github_link) }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="website_link" class="form-label">Edit your website Link</label>
+                        <input type="url" name="website_link" id="website_link"
+                            class="form-control" placeholder="Edit website project link"
+                            aria-describedby="helpId" value="{{ old('website_link', $project->website_link) }}">
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Update Project</button>
                     <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary">Cancel</a>
 
