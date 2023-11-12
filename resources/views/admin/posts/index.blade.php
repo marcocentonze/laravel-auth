@@ -40,29 +40,32 @@
                                 <td class="py-2 px-3">
                                     {{-- <img width="150" src="{{ asset('storage/' . $project->cover_image) }}"
                                         alt="Cover image for {{ $project->title }}" class="img-fluid rounded"> --}}
-                                        @if (str_contains($project->cover_image, 'http'))
-                                                    <img class="card-img" src="{{ asset($project->cover_image) }}"
-                                                        alt="img">
-                                                @else
-                                                    <img class="card-img"
-                                                        src="{{ asset('storage/' . $project->cover_image) }}"
-                                                        alt="img">
-                                                @endif
+                                    @if (str_contains($project->cover_image, 'http'))
+                                        <img class="card-img img-fluid rounded" src="{{ asset($project->cover_image) }}"
+                                            alt="img">
+                                    @else
+                                        <img class="card-img img-fluid rounded"
+                                            src="{{ asset('storage/' . $project->cover_image) }}" alt="img">
+                                    @endif
                                 </td>
                                 <td class="py-2 px-3">{{ $project->description }}</td>
-                                <td>
-                                    <a class="btn btn-primary m-1"
-                                        href="{{ route('admin.projects.show', $project->slug) }}">
-                                        <i class="fa-solid fa-circle-info"></i> More</a>
-                                    <a class="btn btn-warning m-1"
-                                        href="{{ route('admin.projects.edit', $project->slug) }}">
-                                        <i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                                <td class="text-center text-nowrap">
 
-                                    <!-- Modal trigger button -->
-                                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"
-                                        data-bs-target="#modalId-{{ $project->id }}">
-                                        <i class="fa-solid fa-trash-can"></i> Delete
+                                    {{-- more button --}}
+                                    <a class="btn btn-primary " href="{{ route('admin.projects.show', $project->slug) }}"
+                                        title="More">
+                                        <i class="fa-solid fa-circle-info"></i> </a>
+                                    {{-- edit button --}}
+                                    <a class="btn btn-warning my-2"
+                                        href="{{ route('admin.projects.edit', $project->slug) }}" title="Edit">
+                                        <i class="fa-solid fa-pen-to-square"></i></a>
+
+                                    <!-- Modal delete trigger button -->
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#modalId-{{ $project->id }}" title="Delete">
+                                        <i class="fa-solid fa-trash-can"></i>
                                     </button>
+
 
                                     <!-- Modal Body -->
                                     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->

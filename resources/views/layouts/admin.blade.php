@@ -66,7 +66,7 @@
                 <!-- da definire man mano
         -->
                 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar collapse">
-                    <div class="position-sticky pt-3">
+                    <div class="position-sticky pt-3" style="top: 50px;">
                         <ul class="nav flex-column">
                             <li class="nav-item">
 
